@@ -49,7 +49,7 @@ package world.effects
 			super(Assets.getAtlas().getTextures("hammer/pow"), 30);
 			addEventListener(Event.ADDED_TO_STAGE, startAnim);
 			addEventListener(Event.REMOVED_FROM_STAGE, stopAnim);
-			addEventListener(Event.MOVIE_COMPLETED, remove);
+			addEventListener(Event.COMPLETE, remove);
 			centerPivot(this);
 		}
 

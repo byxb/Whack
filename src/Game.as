@@ -28,10 +28,15 @@
 //------------------------------------------------------------------------------
 package
 {
-
+	import flash.ui.Keyboard;
+	
+	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.events.KeyboardEvent;
+	
 	import ui.HUD;
+	
 	import world.World;
 
 	/**
@@ -56,6 +61,9 @@ package
 			addChild(_world);
 			addChild(_hud);
 			_hud.addEventListener("tryAgain", resetLevel);
+            
+            addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+            addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 		}
 
 		/**
@@ -69,5 +77,23 @@ package
 			_world=new World()
 			addChildAt(_world, 0);
 		}
+        
+        private function onAddedToStage(event:Event):void
+        {
+            stage.addEventListener(KeyboardEvent.KEY_DOWN, onKey);
+        }
+        
+        private function onRemovedFromStage(event:Event):void
+        {
+            stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKey);
+        }
+        
+        private function onKey(event:KeyboardEvent):void
+        {
+            // hit the space key to show FPS and MEM
+            
+            if (event.keyCode == Keyboard.SPACE)
+                Starling.current.showStats = !Starling.current.showStats;
+        }
 	}
 }

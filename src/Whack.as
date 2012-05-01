@@ -36,8 +36,8 @@ package
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
-	
-	import net.hires.debug.Stats;
+	import flash.events.KeyboardEvent;
+	import flash.ui.Keyboard;
 	
 	import starling.core.Starling;
 
@@ -49,7 +49,6 @@ package
 	 */
 	public class Whack extends Sprite
 	{
-
 		private var _starling:Starling;
 		private var _menus:Screens;
 
@@ -65,11 +64,7 @@ package
 			_menus=new Screens(); // Screens is in a SWC (don't worry about looking for the class files)
 			_menus.addEventListener("newGame", startGame);
 
-			var stats:Stats=new Stats();
-			stats.x=730;
-			
 			addChild(_menus);
-			addChild(stats);
 			addChild(new NativeStageProxy());
 		}
 
@@ -85,8 +80,6 @@ package
 			_starling.simulateMultitouch=false;
 			_starling.enableErrorChecking=false;
 			_starling.start();
-
 		}
-
 	}
 }

@@ -183,12 +183,11 @@ package world
 			//update the emitter properties for the dirt
 			_debris.emitterX=e.location.x;
 			_debris.emitterY=e.location.y;
-			_debris.emitterAngle=Math.PI - _mole.rotation;
-			_debris.speed=400 * e.speedRatio;
+			_debris.emitAngle=Math.PI - _mole.rotation;
+            _debris.speed=400 * e.speedRatio;
+            
 			if (e.speedRatio == 0)
-			{
 				_debris.stop()
-			}
 		}
 
 		/**

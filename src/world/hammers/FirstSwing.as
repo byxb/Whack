@@ -201,6 +201,7 @@ package world.hammers
 				ind.rotation=atan;
 				ind.x=pt.x;
 				ind.y=pt.y;
+                ind.touchable = false;
 				direction.y-=Const.GRAVITY;
 				addChild(ind);
 			}
