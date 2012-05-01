@@ -90,7 +90,7 @@ package com.byxb.extensions.starling.display
 		 */
 		public function addStretchable(texture:Texture, speedRatio:Number=0, boundingRect:Rectangle=null):void
 		{
-			var img:Image=new StretchImage(texture, boundingRect, _viewport, 20);
+			var img:LargeImage=new StretchImage(texture, boundingRect, _viewport, 20);
 			var pd:PlaneData=new PlaneData(img, speedRatio);
 			_planes[img]=pd;
 			super.addChildAt(img, this.numChildren);

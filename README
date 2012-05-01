@@ -1,6 +1,6 @@
 // =====================================================================
 //
-//  Game Title
+//  Whack!
 //  Copyright 2011 BYXB LLC. All Rights Reserved.
 //
 //  This software has been licensed to Adobe Systems Inc. for
@@ -32,8 +32,12 @@
 //
 // =====================================================================
 
-To use this source, import the project into Flash Builder 4.5.
+To use this source, import the project into Flash Builder 4.6. 
 
-You will need to have access to a playerglobal.swc that supports Flash Player 11.  Please update the project properties to point to your player global, otherwise a build error will occur.
+Since Whack! was built with the [Starling Framework][1], you will need to reference Starling. To do that, either link to the Starling SWC or add a source path pointing to the "src" directory of Starling. 
+
+This version was built with Starling 1.1; if you can't compile it due to a change in Starling, download and use this version until we have updated the code.
 
 Look in the media directory for some of the asset files and tools I used to make the project.
+
+[1]: http://www.starling-framework.org

@@ -3,6 +3,7 @@
 	<name>whack</name>
 	<comment></comment>
 	<projects>
+		<project>Starling</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

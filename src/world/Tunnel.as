@@ -195,10 +195,10 @@ package world
 			moleHill.pivotY=moleHill.height / 2;
 			moleHill.loop=false;
 			Starling.juggler.add(moleHill);
-			moleHill.addEventListener(Event.MOVIE_COMPLETED, function(e:Event):void
+			moleHill.addEventListener(Event.COMPLETE, function(e:Event):void
 			{
 				Starling.juggler.remove(e.target as MovieClip);
-				e.target.removeEventListeners(Event.MOVIE_COMPLETED);
+				e.target.removeEventListeners(Event.COMPLETE);
 			});
 			_moleHills.push(moleHill);
 			this.addChild(moleHill);

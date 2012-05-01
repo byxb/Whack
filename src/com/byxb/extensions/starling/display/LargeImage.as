@@ -30,10 +30,7 @@ package com.byxb.extensions.starling.display
 
 	import com.byxb.utils.*;
 	
-	import flash.geom.Matrix;
-	import flash.geom.Point;
 	import flash.geom.Rectangle;
-	import flash.geom.Vector3D;
 	
 	import starling.core.RenderSupport;
 	import starling.display.DisplayObject;
@@ -73,7 +70,7 @@ package com.byxb.extensions.starling.display
 		public function get isOnScreen():Boolean  { return _drawArea.width > 0 && _drawArea.height > 0; }
 
 		/**
-		 * Extends image to allow for an images whose dimension is uncouples from the texture size.  
+		 * Extends image to allow for an images whose dimension is uncoupled from the texture size.  
 		 * @param texture
 		 * @param boundingRect
 		 * @param viewport
@@ -113,9 +110,9 @@ package com.byxb.extensions.starling.display
 		 * Computes what part of the image intersects with the viewport
 		 * @return 
 		 */
-		protected function updateView():Rectangle
+		protected function updateView():void
 		{
-			return _drawArea=_boundingRect.intersection(viewport);
+			_drawArea=_boundingRect.intersection(viewport);
 		}
 
 		/**
@@ -123,11 +120,13 @@ package com.byxb.extensions.starling.display
 		 */
 		protected function buildImage():void
 		{
-			var drawArea:Rectangle=updateView();
-			buildVertices(drawArea);
-			buildIndices(drawArea);
-			buildTextureCoords(drawArea);
-			createVertexBuffer();
+			updateView();
+			
+            buildVertices(_drawArea);
+			buildIndices(_drawArea);
+			buildTextureCoords(_drawArea);
+			
+            onVertexDataChanged();
 		}
 
 		/**
@@ -201,37 +200,10 @@ package com.byxb.extensions.starling.display
 			}
 		}
 
-		public override function getBounds(targetSpace:DisplayObject):Rectangle
+		public override function getBounds(targetSpace:DisplayObject, resultRect:Rectangle=null):Rectangle
 		{
-			var minX:Number=Number.MAX_VALUE, maxX:Number=-Number.MAX_VALUE;
-			var minY:Number=Number.MAX_VALUE, maxY:Number=-Number.MAX_VALUE;
-			var position:Vector3D;
-			var i:int;
-
-			if (targetSpace == this) // optimization
-			{
-				return _boundingRect.clone();
-			}
-			else
-			{
-				var transformationMatrix:Matrix=getTransformationMatrixToSpace(targetSpace);
-				var point:Point=new Point();
-
-				var corners:Vector.<Point>=new <Point>[_boundingRect.topLeft, new Point(_boundingRect.right, _boundingRect.top), new Point(_boundingRect.left, _boundingRect.bottom), _boundingRect.bottomRight];
-				for (i=0; i < 4; ++i)
-				{
-					//position = mVertexData.getPosition(i);
-					point.x=corners[i].x;
-					point.y=corners[i].y;
-					var transformedPoint:Point=transformationMatrix.transformPoint(point);
-					minX=Math.min(minX, transformedPoint.x);
-					maxX=Math.max(maxX, transformedPoint.x);
-					minY=Math.min(minY, transformedPoint.y);
-					maxY=Math.max(maxY, transformedPoint.y);
-				}
-				return new Rectangle(minX, minY, maxX - minX, maxY - minY);
-			}
-
+            if (resultRect == null) resultRect = new Rectangle;
+            return mVertexData.getBounds(getTransformationMatrix(targetSpace), 0, -1, resultRect);
 		}
 	}
 }

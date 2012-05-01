@@ -27,18 +27,16 @@
 
 package world.effects
 {
-
-	import com.byxb.extensions.starling.extensions.ParticleDesignerPS2;
-	
 	import starling.core.Starling;
 	import starling.events.Event;
+	import starling.extensions.PDParticleSystem;
 
 	/**
 	 * Creates a dirt particle system to be used when the mole is digging.
 	 * @author Justin Church  - Justin [at] byxb [dot] com 
 	 * 
 	 */
-	public class Dirt extends ParticleDesignerPS2
+	public class Dirt extends PDParticleSystem
 	{
 		/**
 		 * Creates a dirt particle system to be used when the mole is digging.

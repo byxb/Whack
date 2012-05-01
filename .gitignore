@@ -1,0 +1,6 @@
+# Build and Release Folders
+bin-debug/
+bin-release/
+
+# OS X folders
+.DS_Store
