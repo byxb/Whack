@@ -32,18 +32,19 @@ package world
 	import com.byxb.extensions.starling.events.CameraUpdateEvent;
 	import com.byxb.geom.InfiniteRectangle;
 	import com.byxb.utils.*;
-
+	
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
-
+	
 	import starling.events.Event;
-
+	
 	import ui.HUD;
-
+	
 	import world.effects.Dirt;
 	import world.events.HammerWhackEvent;
 	import world.events.MoleBobEvent;
 	import world.events.MoleMoveEvent;
+	import world.events.MoleStopEvent;
 	import world.events.MoleSurfaceEvent;
 	import world.events.MoleWhackEvent;
 	import world.hammers.FirstSwing;
@@ -97,8 +98,8 @@ package world
 			_mole.addEventListener(MoleSurfaceEvent.MOLE_SURFACE, onMoleSurface);
 			_mole.addEventListener(MoleMoveEvent.MOLE_MOVE, onMoleMove)
 			_mole.addEventListener(MoleBobEvent.MOLE_BOB, onMoleBob);
+			_mole.addEventListener(MoleStopEvent.MOLE_STOP, onMoleStop);
 			_firstSwing.addEventListener(HammerWhackEvent.HAMMER_WHACK, onHammerWhack);
-
 		}
 
 		/**
@@ -114,6 +115,11 @@ package world
 			this.moveTo(0, 0, 1.55, 0, true);
 			this.easingZoom=.01;
 			this.moveTo(0, 0, .6, 0, false);
+		}
+		
+		private function onMoleStop(e:MoleStopEvent):void 
+		{
+			_hud.levelEnd(_itemManager.itemsCollectedDict, _itemManager.itemsCombo); 
 		}
 
 		/**
@@ -159,7 +165,6 @@ package world
 			}
 			else
 			{
-
 				_debris.stop()
 			}
 
@@ -178,7 +183,11 @@ package world
 			this.moveTo(_mole.x, _mole.y, s, 0);
 			
 			// update the distance stat in the game UI
-			_hud.distance=_mole.x / 250;
+			_hud.distance=_mole.x * Const.PIXEL_TO_FEET_RATIO;
+			
+			// update max height and depth of mole
+			_hud.maxHeight=Math.min(_hud.maxHeight, e.location.y);
+			_hud.maxDepth=Math.max(_hud.maxDepth, e.location.y);
 			
 			//update the emitter properties for the dirt
 			_debris.emitterX=e.location.x;

@@ -29,7 +29,7 @@
 package com.byxb.utils
 {
 	/**
-	 * returns whether or not a is equa to be within a specified tolerance
+	 * returns whether or not a is equal to be within a specified tolerance
 	 * @param a
 	 * @param b
 	 * @param tolerance

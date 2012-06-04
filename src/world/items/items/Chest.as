@@ -41,6 +41,8 @@ package world.items.items
 		public function Chest()
 		{
 			super(Assets.getAtlas().getTexture("items/below/chest"));
+			
+			_humanBonus = 50;
 		}
 	}
 }

@@ -40,6 +40,8 @@ package world.items.items
 		public function Watch()
 		{
 			super(Assets.getAtlas().getTexture("items/above/watch"));
+			
+			_moleBonus=60;
 		}
 	}
 }

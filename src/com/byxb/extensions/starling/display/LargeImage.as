@@ -130,6 +130,9 @@ package com.byxb.extensions.starling.display
 			createVertexBuffer();
 		}
 
+		protected function createVertexBuffer():void{
+			setVertexAlpha(0,1);
+		}
 		/**
 		 * Builds the set of vertices needed to display the current portion of the image
 		 * @param drawArea
@@ -201,7 +204,7 @@ package com.byxb.extensions.starling.display
 			}
 		}
 
-		public override function getBounds(targetSpace:DisplayObject):Rectangle
+		public override function getBounds(targetSpace:DisplayObject, resultRect:Rectangle=null):Rectangle
 		{
 			var minX:Number=Number.MAX_VALUE, maxX:Number=-Number.MAX_VALUE;
 			var minY:Number=Number.MAX_VALUE, maxY:Number=-Number.MAX_VALUE;
@@ -214,7 +217,7 @@ package com.byxb.extensions.starling.display
 			}
 			else
 			{
-				var transformationMatrix:Matrix=getTransformationMatrixToSpace(targetSpace);
+				var transformationMatrix:Matrix=getTransformationMatrix(targetSpace);
 				var point:Point=new Point();
 
 				var corners:Vector.<Point>=new <Point>[_boundingRect.topLeft, new Point(_boundingRect.right, _boundingRect.top), new Point(_boundingRect.left, _boundingRect.bottom), _boundingRect.bottomRight];

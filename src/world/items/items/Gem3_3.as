@@ -40,6 +40,8 @@ package world.items.items
 		public function Gem3_3()
 		{
 			super(Assets.getAtlas().getTexture("items/below/3gem3"));
+			
+			_humanBonus=70;
 		}
 	}
 }

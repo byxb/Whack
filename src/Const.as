@@ -29,8 +29,12 @@
 
 package
 {
+	import data.AchievementItem;
+	
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	
+	import store.UpgradeItem;
 
 	/**
 	 * 
@@ -42,7 +46,8 @@ package
 		//General
 		public static const FPS:uint=60;
 		public static const GRAVITY:Number=.2;
-		public static const BASE_REACH_RADIUS:uint=60
+		public static const BASE_REACH_RADIUS:uint=60;
+		public static const PIXEL_TO_FEET_RATIO:Number=.004;
 
 		private static var _width:uint=800;
 
@@ -114,7 +119,33 @@ package
 		//items
 		public static const ITEMS_CELL_SIZE:uint=100;
 
-
-
+		//Upgrade Items (category:String, itemId:String, title:String, desc:Vector.<String>, level:Vector.<uint>, iconSm:String, iconLg:String, iconBgSm:String, iconBgLg:String)
+		public static const UPGRADE_ITEMS:Vector.<UpgradeItem> = new <UpgradeItem>[
+			new UpgradeItem("human", "hammers",  		"Use hammers to increase mole velocity.",         new <String>["Whacker", "Mallet", "Nailer", "Pneumatic", "Thor", "Key to Moletown"],                      				new <uint>[150, 200, 400, 800, 1000], "items/below/3gem2", "items/below/3gem2"), 
+			new UpgradeItem("human", "whacks",   		"Use whacks to increase mole velocity.",          new <String>["One and Done", "Mulligan", "Fool Me Twice", "Third Time's a Charm", "Four the Love of..."],  			    new <uint>[100, 200, 400, 800, 1000], "items/below/3gem2", "items/below/3gem2"),
+			new UpgradeItem("human", "dynamite",   		"Use dynamite to increase mole velocity.",        new <String>["Pacifist", "Just in Case", "The First Was Lonely", "Boom Boom Boom", "Well-Stocked", "Person of Interest"], new <uint>[100, 200, 400, 800, 1000], "items/below/3gem2", "items/below/3gem2"),
+			new UpgradeItem("mole",  "goggles",  		"Use goggles to increase mole velocity.",         new <String>["Tunnel Vision", "Beer Goggles", "Binoculers", "Night Vision Goggles", "Lasik"], 							new <uint>[100, 200, 400, 800, 1000], "items/below/3gem2", "items/below/3gem2"),
+			new UpgradeItem("mole",  "maneuverability", "Use maneuverability to increase mole velocity.", new <String>["Way of the Rock", "Way of the Tree", "Way of the Mole", "Way of the Ferret", "Way of the Snake"], 		    new <uint>[100, 200, 400, 800, 1000], "items/below/3gem2", "items/below/3gem2"),
+			new UpgradeItem("mole",  "overalls",   		"Use overalls to increase mole velocity.",        new <String>["El Cheapo", "The Classic", "The Bashful", "Deluxe", "Cargo"], 											    new <uint>[100, 200, 400, 800, 1000], "items/below/3gem2", "items/below/3gem2")
+		];
+		
+		// Achievement Items (title:String, description:String, textureKey:String, moleBonus:int, humanBonus:int, earned:Boolean)
+		public static const PLAYED_ON_SPONSOR   :AchievementItem=new AchievementItem("Played on Sponsor"   , "", "", 50, 50, true);
+		public static const WHATS_THE_411       :AchievementItem=new AchievementItem("What's the 411?"     , "", "", 50, 50, true);
+		public static const A_LONG_WAY_TO_RUN   :AchievementItem=new AchievementItem("A Long Way to Run"   , "", "", 50, 50, true);
+		public static const SPELUNKER           :AchievementItem=new AchievementItem("Spelunker"           , "", "", 50, 50, true);
+		public static const THE_FUR_IS_FLYING   :AchievementItem=new AchievementItem("The Fur is Flying"   , "", "", 50, 50, true);
+		public static const DORK                :AchievementItem=new AchievementItem("Dork"                , "", "", 50, 50, true);
+		public static const ARRR                :AchievementItem=new AchievementItem("Arrr!"               , "", "", 50, 50, true);
+		public static const CROWN_JEWELS        :AchievementItem=new AchievementItem("Crown Jewels"        , "", "", 50, 50, true);
+		public static const LEAF_PEEPER         :AchievementItem=new AchievementItem("Leaf Peeper"         , "", "", 50, 50, true);
+		public static const MEGA_COMBO          :AchievementItem=new AchievementItem("Mega Combo"          , "", "", 50, 50, true);
+		public static const TURN_OUT_THE_LIGHTS :AchievementItem=new AchievementItem("Turn Out the Lights" , "", "", 50, 50, true);
+		public static const LEPIDOPTERIST       :AchievementItem=new AchievementItem("Lepidopterist"       , "", "", 50, 50, true);
+		public static const HOLEY_MOLEY         :AchievementItem=new AchievementItem("Holey Moley"         , "", "", 50, 50, true);
+		public static const DRIPPING_IN_DIAMONDS:AchievementItem=new AchievementItem("Dripping in Diamonds", "", "", 50, 50, true);
+		public static const FOOD_PYRAMID        :AchievementItem=new AchievementItem("Food Pyramid"        , "", "", 50, 50, true);
+		public static const MAYOR_OF_MOLETOWN   :AchievementItem=new AchievementItem("Mayor of Moletown"   , "", "", 50, 50, true);
+		public static const ECONOMIC_STIMULUS   :AchievementItem=new AchievementItem("Economic Stimulus"   , "", "", 50, 50, true);
 	}
 }

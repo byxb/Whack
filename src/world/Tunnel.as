@@ -29,6 +29,7 @@ package world
 {
 
 	import com.byxb.extensions.starling.display.DrawImage;
+	import com.byxb.extensions.starling.display.VertexImage;
 	import com.byxb.geom.RibbonMesh;
 	import com.byxb.utils.*;
 	
@@ -61,7 +62,9 @@ package world
 		private var _belowGround:Boolean=false;
 		private var _molehillPool:ObjectPool;
 		private var _moleHills:Vector.<MovieClip>=new <MovieClip>[];
-
+		private var _lastSlice:Vector.<Number>;
+		private var _slices:Vector.<VertexImage>= new Vector.<VertexImage>(200, true);
+		private var _sliceIndex:uint = 0;
 
 		/**
 		 * 
@@ -76,13 +79,17 @@ package world
 			// This will manage the geometry of the tunnel triangles 
 			_backgroundMesh=new RibbonMesh(Const.TUNNEL_LENGTH_SEGMENTS, Const.TUNNEL_CROSS_SEGMENTS);
 			// The DrawImage is an extension of Image that lets you draw triangles for custom shapes
-			_tunnelBackground=new DrawImage(_tunnelTexture);
+			_tunnelBackground=new DrawImage(_tunnelTexture,  Const.TUNNEL_LENGTH_SEGMENTS * Const.TUNNEL_CROSS_SEGMENTS * 2);
 			this.addChild(_tunnelBackground);
 			
 			//Using a pool for recycling molehill MovieClips.
 			_molehillPool=new ObjectPool(true);
 			_molehillPool.setFactory(new MolehillFactory(Assets.getAtlas().getTextures("tunnel/molehill")));
 			_molehillPool.allocate(1); //start with just one molehill
+			_lastSlice= new <Number>[0,0,0,0,0];
+			for(var i:uint=0; i<_slices.length; i++){
+				_slices[i]=new VertexImage(_tunnelTexture);
+			}
 		}
 
 		/**
@@ -130,16 +137,16 @@ package world
 					var moleHill:MovieClip;
 					if (_belowGround && !lastBelow)
 					{
-						_backgroundMesh.addSlice(left, left, 0);
+						addSlice(left, left, 0);
 						createMolehill(_previousDig.x);
 					}
 					if (_belowGround || lastBelow)
 					{
-						_backgroundMesh.addSlice(left, right, (5 / _tunnelTexture.width));
+						addSlice(left, right, (Const.TUNNEL_PIXEL_BUFFER / _tunnelTexture.width));
 					}
 					if (!_belowGround && lastBelow)
 					{
-						_backgroundMesh.addSlice(right, right, 0);
+						addSlice(right, right, 0);
 						createMolehill(_previousDig.x);
 					}
 
@@ -147,11 +154,11 @@ package world
 				if (speedRatio == 0 && _tunnelBuffer > 0)
 				{
 					//adds a slice to the ribbonMesh at the surface on both the left and right if the mole has stopped.
-					_backgroundMesh.addSlice(new Point(p.x - _halfTunnelheight, _groundHeightOffsets.getHeightOffset(p.x - _halfTunnelheight)), 
+					addSlice(new Point(p.x - _halfTunnelheight, _groundHeightOffsets.getHeightOffset(p.x - _halfTunnelheight)), 
 											new Point(p.x + _halfTunnelheight, _groundHeightOffsets.getHeightOffset(p.x + _halfTunnelheight)), 
 											_tunnelBuffer / _tunnelTexture.width);
 					// the end position for the mole is half sticking out of the ground. The tunnel should be removed so it doesn't 
-					// look too odd that he would otherwise be midding his legs.
+					// look too odd that he would otherwise be missing his legs.
 					var t:Tween=new Tween(_tunnelBackground, .5, Transitions.EASE_OUT);
 					t.fadeTo(0)
 					Starling.juggler.add(t);
@@ -195,15 +202,36 @@ package world
 			moleHill.pivotY=moleHill.height / 2;
 			moleHill.loop=false;
 			Starling.juggler.add(moleHill);
-			moleHill.addEventListener(Event.MOVIE_COMPLETED, function(e:Event):void
+			moleHill.addEventListener(Event.COMPLETE, function(e:Event):void
 			{
 				Starling.juggler.remove(e.target as MovieClip);
-				e.target.removeEventListeners(Event.MOVIE_COMPLETED);
+				e.target.removeEventListeners(Event.COMPLETE);
 			});
 			_moleHills.push(moleHill);
 			this.addChild(moleHill);
 		}
 
+		private function addSlice(p1:Point, p2:Point, uStep:Number=0 ):void{
+
+			var slice:VertexImage = _slices[_sliceIndex];
+			var u:Number = _lastSlice[4];
+			slice.setVertex(0, _lastSlice[0],_lastSlice[1], u,0);
+			slice.setVertex(1, _lastSlice[2],_lastSlice[3], u,1);
+			u+=uStep
+			slice.setVertex(2, p1.x, p1.y, u,0);
+			slice.setVertex(3, p2.x, p2.y, u,1);
+			slice.update();
+			_lastSlice[0]=p1.x;
+			_lastSlice[1]=p1.y;
+			_lastSlice[2]=p2.x;
+			_lastSlice[3]=p2.y;
+			_lastSlice[4]=u;
+			++_sliceIndex;
+			_sliceIndex %=_slices.length;
+			
+			addChild(slice)
+		
+		}
 		/**
 		 * Adjust a point to force it to stay below the surface (can't have the tunnel background sticking out into the air!). This is a destructive action.
 		 * @param p the point to modify
@@ -226,7 +254,7 @@ package world
 		public function redraw():void
 		{
 
-			_tunnelBackground.drawGraphicsTrianglePath(_backgroundMesh.trianglePath);
+			//_tunnelBackground.drawGraphicsTrianglePath(_backgroundMesh.trianglePath);
 		}
 
 		public override function dispose():void
@@ -235,6 +263,8 @@ package world
 		}
 	}
 }
+
+
 import de.polygonal.core.ObjectPoolFactory;
 
 import starling.display.MovieClip;

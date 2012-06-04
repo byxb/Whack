@@ -40,6 +40,8 @@ package world.items.items
 		public function Pepper()
 		{
 			super(Assets.getAtlas().getTexture("items/above/pepper"));
+		
+			_moleBonus=40;
 		}
 	}
 }

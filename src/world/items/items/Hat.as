@@ -40,6 +40,8 @@ package world.items.items
 		public function Hat()
 		{
 			super(Assets.getAtlas().getTexture("items/above/hat"));
+			
+			_moleBonus=30;
 		}
 	}
 }

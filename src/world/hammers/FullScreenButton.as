@@ -54,7 +54,7 @@ package world.hammers
 
 		}
 
-		public override function hitTestPoint(localPoint:Point, forTouch:Boolean=false):DisplayObject
+		public override function hitTest(localPoint:Point, forTouch:Boolean=false):DisplayObject
 		{
 			// if the hitTest is looking for whether or not a touch has occurred, it will always respond 
 			// by returning itself (which means a touch occurred.
@@ -62,8 +62,7 @@ package world.hammers
 			{
 				return this;
 			}
-			return super.hitTestPoint(localPoint, forTouch)
-
+			return super.hitTest(localPoint, forTouch);
 		}
 	}
 }

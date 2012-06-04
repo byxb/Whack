@@ -41,6 +41,8 @@ package world.items.items
 		public function Dynamite()
 		{
 			super(Assets.getAtlas().getTexture("items/below/dynamite"));
+			
+			_humanBonus=50;
 		}
 	}
 }

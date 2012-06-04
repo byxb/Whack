@@ -85,7 +85,6 @@ package
 			_starling.simulateMultitouch=false;
 			_starling.enableErrorChecking=false;
 			_starling.start();
-
 		}
 
 	}

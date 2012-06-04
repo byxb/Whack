@@ -43,12 +43,19 @@ package world.items.items
 	 */
 	public class Item extends Image
 	{
+		protected var _moleBonus:int=0;
+		protected var _humanBonus:int=0;
+
 		/**
 		 * The score value that is gained by collecting the item
 		 * @default 
 		 */
-		public const VALUE:uint=50
-
+		public const SCORE_VALUE:uint=50;
+			
+		public function get moleBonus():int {return _moleBonus;}
+		
+		public function get humanBonus():int {return _humanBonus;}
+		
 		/**
 		 * Creates a new Item.  This should not be instantiated directly.
 		 * @param texture

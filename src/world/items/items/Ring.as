@@ -40,6 +40,8 @@ package world.items.items
 		public function Ring()
 		{
 			super(Assets.getAtlas().getTexture("items/above/ring"));
+			
+			_moleBonus=50;
 		}
 	}
 }

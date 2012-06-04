@@ -25,7 +25,6 @@
 //
 //------------------------------------------------------------------------------
 
-
 package world.items
 {
 
@@ -36,6 +35,7 @@ package world.items
 	import flash.utils.*;
 	
 	import starling.display.Sprite;
+	import starling.textures.Texture;
 	
 	import ui.HUD;
 	
@@ -53,7 +53,7 @@ package world.items
 	public class ItemManager extends Sprite
 	{
 		private var _zones:Vector.<ItemZone>=new <ItemZone>[];
-		private var _items:Vector.<Item>=new <Item>[];
+		private var _items:Vector.<Item>=new <Item>[];  // looks like this variable is not being used
 		private var _lastCollisionStart:uint;
 		private var _itemHead:uint=0;
 		private var _cellSize:uint=Const.ITEMS_CELL_SIZE;
@@ -62,7 +62,14 @@ package world.items
 		private var _cellGrid:Vector.<Vector.<Item>>;
 		private var _topLeftCell:Point=new Point();
 		private var _gridHead:Point=new Point();
-
+		private var _itemsCollectedDict:Dictionary=new Dictionary();
+		private var _itemsCombo:Vector.<ItemCombo>=new <ItemCombo>[];
+		private var _prevItem:Class;
+		private var _currentCombo:uint=1;
+		
+		public function get itemsCollectedDict():Dictionary {return _itemsCollectedDict;}
+		public function get itemsCombo():Vector.<ItemCombo> {return _itemsCombo;}
+		
 		/**
 		 * creates a new ItemManager with zones and items populated near 0,0
 		 */
@@ -247,15 +254,39 @@ package world.items
 				{
 					gridY=loop(_gridHead.y + j, _cellRows);
 					var item:Item=_cellGrid[gridX][gridY];
+					
 					// avoiding un-needed Square root calls.  I don't actually need the distance, I just need to know if the
 					// item is in range
 					if (item && Math.pow(point.x - item.x, 2) + Math.pow(point.y - item.y, 2) < Math.pow(collisionRadius, 2))
 					{
 						item.hit(point);
-						HUD.instance.score+=item.VALUE;
+						HUD.instance.score+=item.SCORE_VALUE;
 						// removing the item from the grid, but not killing the item.  
 						// This just means that the next move will not collision detect against the object again.
 						_cellGrid[gridX][gridY]=null; 
+						var classname:String = getQualifiedClassName(item);
+						
+						// check for combos
+						var currItem:Class=getDefinitionByName(getQualifiedClassName(item)) as Class;
+						if (_prevItem && _prevItem == currItem) 
+						{
+							_currentCombo++;		
+						} else 
+						{
+							if (_currentCombo > 1) _itemsCombo.push(new ItemCombo(_prevItem, _currentCombo));
+							_currentCombo=1;
+						}
+						
+						// add item to dictionary
+						if (_itemsCollectedDict[currItem] == undefined) 
+						{
+							_itemsCollectedDict[currItem] = 1;
+						} else 
+						{
+							_itemsCollectedDict[currItem]++;	
+						}
+						
+						_prevItem=currItem;
 					}
 				}
 			}

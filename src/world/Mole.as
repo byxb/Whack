@@ -39,11 +39,13 @@ package world
 	import starling.events.EnterFrameEvent;
 	import starling.events.Event;
 	import starling.textures.Texture;
+	import starling.textures.TextureSmoothing;
 	
 	import ui.HUD;
 	
 	import world.events.MoleBobEvent;
 	import world.events.MoleMoveEvent;
+	import world.events.MoleStopEvent;
 	import world.events.MoleSurfaceEvent;
 	import world.events.MoleWhackEvent;
 
@@ -174,10 +176,11 @@ package world
 					_mole.play();
 					_juggler.delayCall(function():void
 					{
-						HUD.instance.levelEnd();
+						//HUD.instance.levelEnd();  //create custom event here for the world to catch, e.g. "moleStop". 
+						dispatchEvent(new MoleStopEvent());
 					}, .5)
 					break;
-
+				
 			}
 			//now set the official state
 			_state=state;
@@ -215,9 +218,10 @@ package world
 			
 			_costumes||=new Object();
 			_costumes[name]=new MovieClip(textures, Const.MOLE_FPS);
-
 			var costume:MovieClip=_costumes[name] as MovieClip;
 			costume.name=name;
+			trace( costume.smoothing);
+			costume.smoothing = TextureSmoothing.TRILINEAR;
 			centerPivot(costume);
 		}
 

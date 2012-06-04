@@ -52,7 +52,13 @@ package
 		 */
 		public static const AtlasTexture:Class;
 
-
+		[Embed(source="../media/textures/storeAtlas.png")]
+		/**
+		 * 
+		 * @default 
+		 */
+		public static const StoreAtlasTexture:Class;
+		
 		// Fonts
 
 		// The 'embedAsCFF'-part IS REQUIRED!!!!
@@ -63,6 +69,9 @@ package
 
 		[Embed(source="../media/textures/atlas.xml", mimeType="application/octet-stream")]
 		public static const AtlasXml:Class;
+		
+		[Embed(source="../media/textures/storeAtlas.xml", mimeType="application/octet-stream")]
+		public static const StoreAtlasXml:Class;
 
 		//XML
 		
@@ -76,7 +85,8 @@ package
 		
 		private static var sSounds:Dictionary=new Dictionary();
 		private static var sTextureAtlas:TextureAtlas;
-
+		private static var sStoreTextureAtlas:TextureAtlas;
+		
 
 		// Sounds
 
@@ -102,6 +112,22 @@ package
 			}
 
 			return sTextureAtlas;
+		}
+		
+		/**
+		 * Returns the Texture atlas instance.
+		 * @return the TextureAtlas instance (there is only oneinstance per app)
+		 */
+		public static function getStoreAtlas():TextureAtlas
+		{
+			if (sStoreTextureAtlas == null)
+			{
+				var texture:Texture=getTexture("StoreAtlasTexture");
+				var xml:XML=XML(new StoreAtlasXml());
+				sStoreTextureAtlas=new TextureAtlas(texture, xml);
+			}
+			
+			return sStoreTextureAtlas;
 		}
 
 		/**

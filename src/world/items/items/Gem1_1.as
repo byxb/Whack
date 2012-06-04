@@ -37,10 +37,11 @@ package world.items.items
 	 */
 	public class Gem1_1 extends Item
 	{
-
 		public function Gem1_1()
 		{
 			super(Assets.getAtlas().getTexture("items/below/gem1"));
+		
+			_humanBonus=30;
 		}
 	}
 }

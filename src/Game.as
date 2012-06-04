@@ -1,5 +1,4 @@
 //------------------------------------------------------------------------------
-//
 // 
 // Whack! Game 
 // Copyright 2011 BYXB LLC. All Rights Reserved. 
@@ -26,12 +25,24 @@
 // For more information see http://www.byxb.com/. 
 //
 //------------------------------------------------------------------------------
+
 package
 {
 
+	import data.GameData;
+	import data.SavedGame;
+	import data.Stats;
+	
+	import flash.utils.*;
+	
 	import starling.display.Sprite;
 	import starling.events.Event;
+	
+	import store.*;
+	import store.events.StoreCloseEvent;
+	
 	import ui.HUD;
+	
 	import world.World;
 
 	/**
@@ -44,6 +55,7 @@ package
 	{
 		private var _hud:HUD;
 		private var _world:World;
+		private var _storeView:Store;
 		
 		/**
 		 * Creates a new game with a Worls play area and HUD.
@@ -56,6 +68,29 @@ package
 			addChild(_world);
 			addChild(_hud);
 			_hud.addEventListener("tryAgain", resetLevel);
+//TODO: update Stat's public propertics with total play time and session time;
+//TODO: start session play time by calling [pseudo code] Stats.getSessionPlayTime();
+//TODO: start total play time by calling [pseudo code] Stats.getTotalPlayTimes();
+//TODO: start getTimer();
+			
+			// testing GameData so
+			/*GameData.loadGame(0);
+			var stats:Stats = GameData.game.stats;
+			var game:SavedGame = GameData.game;*/
+			//GameData.clear();
+			//trace("game");
+			//GameData.clear();
+			GameData.loadGame(0);
+			if (GameData.game.stats.firstPlay == null) GameData.game.stats.firstPlay = new Date();
+			
+			/*_storeView = new Store();
+			_storeView.addEventListener(StoreCloseEvent.STORE_CLOSE, removeStore);
+			addChild(_storeView);*/
+		}
+		
+		private function removeStore(e:StoreCloseEvent):void 
+		{
+			removeChild(_storeView, true);
 		}
 
 		/**
@@ -68,6 +103,7 @@ package
 			_world.removeFromParent(true);
 			_world=new World()
 			addChildAt(_world, 0);
+//TODO: call save() on GameData.
 		}
 	}
 }
