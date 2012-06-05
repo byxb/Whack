@@ -1,40 +1,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0014)about:internet -->
+
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"> 
-    <!-- 
-    Smart developers always View Source. 
-    
-    This application was built using Adobe Flex, an open source framework
-    for building rich Internet applications that get delivered via the
-    Flash Player or to desktops via Adobe AIR. 
-    
-    Learn more about Flex at http://flex.org 
-    // -->
     <head>
-        <title>${title}</title>
+        <title>Whack! - an open source game by Byxb Interactive</title>
         <meta name="google" value="notranslate" />         
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <!-- Include CSS to eliminate any default margins/padding and set the height of the html element and 
-             the body element to 100%, because Firefox, or any Gecko based browser, interprets percentage as 
-             the percentage of the height of its parent container, which has to be set explicitly.  Fix for
-             Firefox 3.6 focus border issues.  Initially, don't display flashContent div so it won't show 
-             if JavaScript disabled.
-        -->
-        <style type="text/css" media="screen"> 
-            html, body  { height:100%; }
-            body { margin:0; padding:0; overflow:auto; text-align:center; 
-                   background-color: ${bgcolor}; }   
-            object:focus { outline:none; }
-            #flashContent { display:none; }
-        </style>
-        
-        <!-- Enable Browser History by replacing useBrowserHistory tokens with two hyphens -->
-        <!-- BEGIN Browser History required section ${useBrowserHistory}>
-        <link rel="stylesheet" type="text/css" href="history/history.css" />
-        <script type="text/javascript" src="history/history.js"></script>
-        <!${useBrowserHistory} END Browser History required section -->  
-            
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>   
         <script type="text/javascript" src="swfobject.js"></script>
+        <link rel="stylesheet" type="text/css" href="whackSite.css" />
+
         <script type="text/javascript">
             // For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. 
             var swfVersionStr = "${version_major}.${version_minor}.${version_revision}";
@@ -42,7 +17,7 @@
             var xiSwfUrlStr = "${expressInstallSwf}";
             var flashvars = {};
             var params = {};
-            params.quality = "high";
+            params.quality = "high";  
             params.bgcolor = "${bgcolor}";
             params.allowscriptaccess = "sameDomain";
             params.allowfullscreen = "true";
@@ -61,23 +36,45 @@
             // JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
             swfobject.createCSS("#flashContent", "display:block;text-align:left;");
         </script>
+        <script type="text/javascript">
+        	$(document).ready(function() {
+				
+				
+				$("#mainContent").before("<div class='stripe'><img id='bg_left' class='side_BG' src='images/shadow_left.gif'/><img id='bg_right' class='side_BG' src='images/shadow_right.gif'/></div>");
+				$("#mainContent").position({
+					of: $(document),
+					my: "center top",
+					at: "center top"
+				});
+
+
+        	});
+        </script>
     </head>
     <body>
-        <!-- SWFObject's dynamic embed method replaces this alternative HTML content with Flash content when enough 
-             JavaScript and Flash plug-in support is available. The div is initially hidden so that it doesn't show
-             when JavaScript is disabled.
-        -->
+        
+        <div id="mainContent">
+        <img src="images/logo.gif" id="logo" />
+        <img src="images/topEdgeBG.gif"/>
         <div id="flashContent">
             <p>
                 To view this page ensure that Adobe Flash Player version 
                 ${version_major}.${version_minor}.${version_revision} or greater is installed. 
             </p>
-            <script type="text/javascript"> 
-                var pageHost = ((document.location.protocol == "https:") ? "https://" : "http://"); 
-                document.write("<a href='http://www.adobe.com/go/getflashplayer'><img src='" 
-                                + pageHost + "www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a>" ); 
-            </script> 
+           <a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a>         
         </div>
+        <div id="content">
+        	<div>
+        		<p><img src="images/heading_getSource.gif" alt="Get the Source from GitHub"/><BR/>
+        			Don't just play the game, build it!  If you'd like to learn how to use Starling to build a hardware accelerated 2D game in Flash, download 
+        			the source from <a href="http://github.com/byxb/whack">GitHub</a>.  If you just want to take a peek at a specific part of the code, 
+        			you can also right mouse click on the game and view source to browse the source.
+        		 </p>
+        	</div>
+        </div>
+        
+        
+        
         
         <noscript>
             <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="${width}" height="${height}" id="${application}">
@@ -106,6 +103,20 @@
                 </object>
                 <!--<![endif]-->
             </object>
-        </noscript>     
+        </noscript>   
+		</div>
+		
+        <script type="text/javascript">
+			 var _gaq = _gaq || [];
+			 _gaq.push(['_setAccount', 'UA-26138166-2']);
+			 _gaq.push(['_trackPageview']);
+			
+			 (function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			 })();
+	
+		</script>    
    </body>
 </html>
