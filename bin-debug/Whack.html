@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"> 
+    <head>
+        <title>Whack! - an open source game by Byxb Interactive</title>
+        <meta name="google" value="notranslate" />         
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>   
+        <script type="text/javascript" src="swfobject.js"></script>
+        <link rel="stylesheet" type="text/css" href="whackSite.css" />
+
+        <script type="text/javascript">
+            // For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. 
+            var swfVersionStr = "11.1.0";
+            // To use express install, set to playerProductInstall.swf, otherwise the empty string. 
+            var xiSwfUrlStr = "playerProductInstall.swf";
+            var flashvars = {};
+            var params = {};
+            params.quality = "high";  
+            params.bgcolor = "#333333";
+            params.allowscriptaccess = "sameDomain";
+            params.allowfullscreen = "true";
+            params.wmode= "direct";
+            
+            var attributes = {};
+            attributes.id = "Whack";
+            attributes.name = "Whack";
+            attributes.align = "middle";
+            attributes.wmode = "direct";
+            swfobject.embedSWF(
+                "Whack.swf", "flashContent", 
+                "800", "450", 
+                swfVersionStr, xiSwfUrlStr, 
+                flashvars, params, attributes);
+            // JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
+            swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+        </script>
+        <script type="text/javascript">
+        	$(document).ready(function() {
+				
+				
+				$("#mainContent").before("<div class='stripe'><img id='bg_left' class='side_BG' src='images/shadow_left.gif'/><img id='bg_right' class='side_BG' src='images/shadow_right.gif'/></div>");
+				$("#mainContent").position({
+					of: $(document),
+					my: "center top",
+					at: "center top"
+				});
+
+
+        	});
+        </script>
+    </head>
+    <body>
+        
+        <div id="mainContent">
+        <img src="images/logo.gif" id="logo" />
+        <img src="images/topEdgeBG.gif"/>
+        <div id="flashContent">
+            <p>
+                To view this page ensure that Adobe Flash Player version 
+                11.1.0 or greater is installed. 
+            </p>
+           <a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a>         
+        </div>
+        <div id="content">
+        	<div>
+        		<p><img src="images/heading_getSource.gif" alt="Get the Source from GitHub"/><BR/>
+        			Don't just play the game, build it!  If you'd like to learn how to use Starling to build a hardware accelerated 2D game in Flash, download 
+        			the source from <a href="http://github.com/byxb/whack">GitHub</a>.  If you just want to take a peek at a specific part of the code, 
+        			you can also right mouse click on the game and view source to browse the source.
+        		 </p>
+        	</div>
+        </div>
+        
+        
+        
+        
+        <noscript>
+            <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="800" height="450" id="Whack">
+                <param name="movie" value="Whack.swf" />
+                <param name="quality" value="high" />
+                <param name="bgcolor" value="#333333" />
+                <param name="allowScriptAccess" value="sameDomain" />
+                <param name="allowFullScreen" value="true" />
+                <!--[if !IE]>-->
+                <object type="application/x-shockwave-flash" data="Whack.swf" width="800" height="450">
+                    <param name="quality" value="high" />
+                    <param name="bgcolor" value="#333333" />
+                    <param name="allowScriptAccess" value="sameDomain" />
+                    <param name="allowFullScreen" value="true" />
+                <!--<![endif]-->
+                <!--[if gte IE 6]>-->
+                    <p> 
+                        Either scripts and active content are not permitted to run or Adobe Flash Player version
+                        11.1.0 or greater is not installed.
+                    </p>
+                <!--<![endif]-->
+                    <a href="http://www.adobe.com/go/getflashplayer">
+                        <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash Player" />
+                    </a>
+                <!--[if !IE]>-->
+                </object>
+                <!--<![endif]-->
+            </object>
+        </noscript>   
+		</div>
+		
+        <script type="text/javascript">
+			 var _gaq = _gaq || [];
+			 _gaq.push(['_setAccount', 'UA-26138166-2']);
+			 _gaq.push(['_trackPageview']);
+			
+			 (function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			 })();
+	
+		</script>    
+   </body>
+</html>
