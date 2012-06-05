@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:b0896658a6405191c67b0846e59e3ec6$ -->
+<TextureAtlas imagePath="storeAtlas.png">
+    <SubTexture name="background" x="2" y="154" width="800" height="100"/>
+    <SubTexture name="buttons/buyBtn" x="804" y="62" width="210" height="58"/>
+    <SubTexture name="buttons/iconBgLg" x="2" y="2" width="150" height="150"/>
+    <SubTexture name="buttons/iconBgSm" x="154" y="2" width="78" height="78" frameX="-12" frameY="-16" frameWidth="100" frameHeight="100"/>
+    <SubTexture name="buttons/playBtn" x="804" y="2" width="210" height="58"/>
+    <SubTexture name="thermometer/empty" x="186" y="122" width="30" height="30" frameX="0" frameY="-1" frameWidth="32" frameHeight="32"/>
+    <SubTexture name="thermometer/full" x="154" y="122" width="30" height="30" frameX="0" frameY="-1" frameWidth="32" frameHeight="32"/>
+</TextureAtlas>
